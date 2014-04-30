@@ -6,6 +6,9 @@
 
 package currencyexchange;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Quan Nguyen
@@ -36,10 +39,10 @@ public class CurrencyExchange extends javax.swing.JFrame {
         resultAmt = new javax.swing.JFormattedTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        about = new javax.swing.JMenuItem();
+        update = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        exit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -65,15 +68,25 @@ public class CurrencyExchange extends javax.swing.JFrame {
         jMenu1.setText("Menu");
         jMenu1.setToolTipText("");
 
-        jMenuItem1.setText("About");
-        jMenu1.add(jMenuItem1);
+        about.setText("About");
+        about.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutActionPerformed(evt);
+            }
+        });
+        jMenu1.add(about);
 
-        jMenuItem2.setText("Update");
-        jMenu1.add(jMenuItem2);
+        update.setText("Update");
+        jMenu1.add(update);
         jMenu1.add(jSeparator1);
 
-        jMenuItem3.setText("Exit");
-        jMenu1.add(jMenuItem3);
+        exit.setText("Exit");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(exit);
 
         jMenuBar1.add(jMenu1);
 
@@ -124,6 +137,19 @@ public class CurrencyExchange extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_exitActionPerformed
+
+    private void aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null,"<html>This program converts currency!"+
+                                           "<br/>Created by Quan Nguyen</html>",
+                                           "About", 
+                                           JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_aboutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -160,17 +186,17 @@ public class CurrencyExchange extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem about;
     private javax.swing.JFormattedTextField exchangeAmt;
     private javax.swing.JLabel exchangeRate;
     private javax.swing.JLabel exchangeRes;
     private javax.swing.JComboBox exchangeUnit;
+    private javax.swing.JMenuItem exit;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JFormattedTextField resultAmt;
     private javax.swing.JComboBox resultUnit;
+    private javax.swing.JMenuItem update;
     // End of variables declaration//GEN-END:variables
 }
