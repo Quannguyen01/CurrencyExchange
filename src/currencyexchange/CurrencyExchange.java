@@ -50,6 +50,11 @@ public class CurrencyExchange extends javax.swing.JFrame {
         exchangeAmt.setColumns(20);
         exchangeAmt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         exchangeAmt.setToolTipText("");
+        exchangeAmt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                exchangeAmtkeyUp(evt);
+            }
+        });
 
         exchangeUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -149,6 +154,19 @@ public class CurrencyExchange extends javax.swing.JFrame {
                                            "About", 
                                            JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_aboutActionPerformed
+
+    private void exchangeAmtkeyUp(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_exchangeAmtkeyUp
+        // TODO add your handling code here:
+        if (evt.getKeyChar() != evt.VK_ENTER){
+            try{
+                double amountExchange = Double.valueOf(exchangeAmt.getText());
+                //get rate calculate the result
+                resultAmt.setValue(new Double(amountExchange));
+            } catch (NumberFormatException ex) {
+                resultAmt.setText("0.00");
+            }
+        }
+    }//GEN-LAST:event_exchangeAmtkeyUp
 
     /**
      * @param args the command line arguments
