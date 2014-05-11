@@ -23,6 +23,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Update"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
@@ -48,6 +51,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="onClosingWindowListener"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -129,23 +135,23 @@
     <Component class="javax.swing.JComboBox" name="exchangeUnit">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel(JSONCurrency.getCurrencyUnitsJSON().toArray(new CurrencyUnit[JSONCurrency.getCurrencyUnitsJSON().size()]))" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel(currency)" type="code"/>
         </Property>
         <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="0" type="code"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[28, 20]"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[180, 20]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CurrencyActionListener"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="resultUnit">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel(JSONCurrency.getCurrencyUnitsJSON().toArray(new CurrencyUnit[JSONCurrency.getCurrencyUnitsJSON().size()]))" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel(currency)" type="code"/>
         </Property>
         <Property name="selectedIndex" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="0" type="code"/>
@@ -157,6 +163,9 @@
           <Dimension value="[180, 20]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CurrencyActionListener"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="exchangeRate">
       <Properties>

@@ -23,7 +23,7 @@ import org.json.simple.parser.ParseException;
  * @author Quan Nguyen
  */
 public class JSONCurrency {
-    private static final String filePath = System.getProperty("user.dir") + "/res/currencyUnits.json";
+    private static final String filePath = "./res/currencyUnits.json";
     
     public static ArrayList<CurrencyUnit> getCurrencyUnitsJSON() {
         try {

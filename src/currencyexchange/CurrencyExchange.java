@@ -6,6 +6,7 @@
 
 package currencyexchange;
 
+import java.awt.Cursor;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -15,6 +16,9 @@ import javax.swing.JOptionPane;
  */
 public class CurrencyExchange extends javax.swing.JFrame {
 
+    private final CurrencyUnit[] currency = JSONCurrency.getCurrencyUnitsJSON().toArray(new CurrencyUnit[JSONCurrency.getCurrencyUnitsJSON().size()]);
+    private CurrencyRate rates = new CurrencyRate("./res/rates.ser", currency);
+    private double rate = 0;
     /**
      * Creates new form CurrencyExchange
      */
@@ -46,6 +50,11 @@ public class CurrencyExchange extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                onClosingWindowListener(evt);
+            }
+        });
 
         exchangeAmt.setColumns(20);
         exchangeAmt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
@@ -57,15 +66,24 @@ public class CurrencyExchange extends javax.swing.JFrame {
             }
         });
 
-        exchangeUnit.setModel(new javax.swing.DefaultComboBoxModel(JSONCurrency.getCurrencyUnitsJSON().toArray(new CurrencyUnit[JSONCurrency.getCurrencyUnitsJSON().size()])));
+        exchangeUnit.setModel(new javax.swing.DefaultComboBoxModel(currency));
         exchangeUnit.setSelectedIndex(0);
-        exchangeUnit.setMinimumSize(new java.awt.Dimension(28, 20));
         exchangeUnit.setPreferredSize(new java.awt.Dimension(180, 20));
+        exchangeUnit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CurrencyActionListener(evt);
+            }
+        });
 
-        resultUnit.setModel(new javax.swing.DefaultComboBoxModel(JSONCurrency.getCurrencyUnitsJSON().toArray(new CurrencyUnit[JSONCurrency.getCurrencyUnitsJSON().size()])));
+        resultUnit.setModel(new javax.swing.DefaultComboBoxModel(currency));
         resultUnit.setSelectedIndex(0);
         resultUnit.setMinimumSize(new java.awt.Dimension(171, 20));
         resultUnit.setPreferredSize(new java.awt.Dimension(180, 20));
+        resultUnit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CurrencyActionListener(evt);
+            }
+        });
 
         exchangeRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         exchangeRate.setText("No rates available.");
@@ -90,6 +108,11 @@ public class CurrencyExchange extends javax.swing.JFrame {
         jMenu1.add(about);
 
         update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
         jMenu1.add(update);
         jMenu1.add(jSeparator1);
 
@@ -154,6 +177,7 @@ public class CurrencyExchange extends javax.swing.JFrame {
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
         System.exit(0);
+        
     }//GEN-LAST:event_exitActionPerformed
 
     private void aboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutActionPerformed
@@ -169,13 +193,39 @@ public class CurrencyExchange extends javax.swing.JFrame {
         if (evt.getKeyChar() != evt.VK_ENTER){
             try{
                 double amountExchange = Double.valueOf(exchangeAmt.getText());
-                //get rate calculate the result
-                resultAmt.setValue(new Double(amountExchange));
+                double amountResult = amountExchange * rate;
+                resultAmt.setValue(new Double(amountResult));
             } catch (NumberFormatException ex) {
                 resultAmt.setText("0.00");
             }
         }
     }//GEN-LAST:event_exchangeAmtkeyUp
+
+    private void CurrencyActionListener(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CurrencyActionListener
+        // TODO add your handling code here:
+        CurrencyUnit fromCurrency = ((CurrencyUnit)exchangeUnit.getSelectedItem());
+        CurrencyUnit toCurrency = ((CurrencyUnit)resultUnit.getSelectedItem());
+        
+        rate = rates.getRate(fromCurrency,toCurrency);
+        
+        if (rate != 0)
+            exchangeRate.setText(toCurrency.getCurrencyUnit() + "/" 
+                                  + fromCurrency.getCurrencyUnit() + 
+                                    " = " + Double.toString(rate));
+        else
+            exchangeRate.setText("No available rates");
+    }//GEN-LAST:event_CurrencyActionListener
+
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        // TODO add your handling code here:
+        //exchangeRate.setText("Please wait for updating...");
+        
+        rates.updateTable();
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void onClosingWindowListener(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_onClosingWindowListener
+        rates.saveTable();
+    }//GEN-LAST:event_onClosingWindowListener
 
     /**
      * @param args the command line arguments
