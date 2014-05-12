@@ -18,7 +18,7 @@ public class CurrencyExchange extends javax.swing.JFrame {
 
     private final CurrencyUnit[] currency = JSONCurrency.getCurrencyUnitsJSON().toArray(new CurrencyUnit[JSONCurrency.getCurrencyUnitsJSON().size()]);
     private CurrencyRate rates = new CurrencyRate("./res/rates.ser", currency);
-    private double rate = 0;
+    private double rate = 1;
     /**
      * Creates new form CurrencyExchange
      */
@@ -86,7 +86,7 @@ public class CurrencyExchange extends javax.swing.JFrame {
         });
 
         exchangeRate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        exchangeRate.setText("No rates available.");
+        exchangeRate.setText("AED/AED = 1.0");
 
         resultAmt.setEditable(false);
         resultAmt.setColumns(20);

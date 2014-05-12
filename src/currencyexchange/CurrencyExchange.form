@@ -170,7 +170,7 @@
     <Component class="javax.swing.JLabel" name="exchangeRate">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="No rates available."/>
+        <Property name="text" type="java.lang.String" value="AED/AED = 1.0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="resultAmt">
