@@ -214,6 +214,10 @@ public class CurrencyExchange extends javax.swing.JFrame {
                                     " = " + Double.toString(rate));
         else
             exchangeRate.setText("No available rates");
+        
+        double amountExchange = Double.valueOf(exchangeAmt.getText());
+        double amountResult = amountExchange * rate;
+        resultAmt.setValue(new Double(amountResult));
     }//GEN-LAST:event_CurrencyActionListener
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
